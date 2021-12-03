@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+{% block conteudo %}
+<div class="container theme-showcase" role="main">
+	 <br>	
+	 <br>	
+	 <br>	
+    <!-- Main jumbotron for a primary marketing message or call to action -->
+    <div class="jumbotron">  	 
+      <p>Controle de ventilador</p>        
+      {% if tempEn %}
+      <div>
+	      <br>
+	      <p>Temperatura atual: {{temp}} C</p>
+	      <br>
+      </div>
+      <div>
+	      <form action="/" method="POST">
+	        <input type="text" name="tempE" value="1" hidden>
+		      <input type="number" name="setTemp" value="{{setT}}" onChange="this.form.submit()">
+	      </form>
+	      <br>
+      	{% if statusSaida1 == "off" %}
+          	<button type="button" class="btn btn-danger" disabled>Desligado</button>
+	      {% else %}
+            <button type="button" class="btn btn-success" disabled>Ligado</button>
+	      {% endif %}
+	      <br>
+      </div>
+      {% endif %}
+      <div>
+	      <form action="/" method="POST">
+			<label>Modo sensor de temperatura</label>
+		{% if tempEn %}
+	      		<input type="checkbox" name="tempE" value="1" onChange="this.form.submit()" checked>
+		{% else %}
+		      	<input type="checkbox" name="tempE" value="0" onChange="this.form.submit()">
+		{% endif %}
+	      </form>
+      </div>
+
+
+      {% if not tempEn %}
+      <div class="row">
+        <div class="col-md-6">
+          <table class="table table-bordered">
+          <tbody>
+            <tr>
+            <td><b>Ligar Ventilador manualmente</b></td>
+            <td>
+              <div class="btn-group" role="groupSaida1" aria-label="...">
+                {% if statusSaida1 == "off" %}
+                  <button type="button" class="btn btn-default" onclick="window.location.href='/saida1/on';">Ligar</button>
+                  <button type="button" class="btn btn-danger" onclick="window.location.href='/saida1/off';"disabled>Desligado</button>
+                {% else %}											  
+                  <button type="button" class="btn btn-success" onclick="window.location.href='/saida1/on';" disabled>Ligado</button>
+                  <button type="button" class="btn btn-default" onclick="window.location.href='/saida1/off';">Desligar</button>		  
+                {% endif %}
+              </div>
+            </td>              
+            </tr>             
+
+            <tr>
+              <td> <b> Temporizador </b></td>
+              <td>
+                <form action="/saida1/onT" method="POST">
+                  <div class="form-group">
+                    <input type="text" class="form-control" id="tempo" name="txt_tempo" placeholder="Digite o tempo (m)" required>
+                  </div>
+                  {% if stsTempo == "desativado" %}
+                    <button type="submit" class="btn btn-primary">Iniciar timer</button>
+                  {% else %}
+                    <button type="submit" id="btnRunning" class="btn btn-danger" disabled>running... {{ tempo }} minuto(s)</button>                      
+                    <div id="log"></div>
+                  {% endif %}
+                </form>
+              </td>
+            </tr>   
+            
+            <tr>
+              <td> <b> Intervalo </b></td>
+              <td>
+                <form action="/saida1/intervalo" method="POST">
+                  <div class="form-group">
+                    <label for="inter_ini">T off (m):</label>
+                    <input type="number" class="form-control" id="txt_freq_ligar" name="txt_freq_ligar" placeholder="Digite o frequencia (m)" value="3">
+                    <label for="inter_ini">T on (m):</label>
+                    <input type="number" class="form-control" id="txt_tempo_ligado" name="txt_tempo_ligado" placeholder="Digite o tempo ligado (m)" value="1">
+                    <label for="inter_ini">Repetir por X vezes:</label>
+                    <input type="number" class="form-control" id="txt_repetir" name="txt_repetir" placeholder="Digite por quantas horas repetir (h)" value="3">
+                  </div>
+                  {% if stsIntervalo == "desativado" %}
+		  <!-- <button type="submit" class="btn btn-primary">Iniciar intervalo</button> -->
+                  {% else %}
+                    <button type="submit" id="btnRunning" class="btn btn-danger" disabled>rodando intervalo {{ vezes_i }} vezes</button>                      
+                    <div id="log_i"></div>
+                  {% endif %}
+                </form>
+              </td>
+            </tr> 
+                      
+          </tbody>
+          </table>
+        </div>
+      </div>		
+      {% endif %}
+    </div>
+</div> <!-- /container -->
+{% endblock %}
+	
