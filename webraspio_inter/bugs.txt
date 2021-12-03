@@ -1,0 +1,6 @@
+bugs:
+
+Temporizador nao parando apos Desliga
+apos ligar timer, desligar pelo botao 'Desliga'. Religar timer com algum tempo. 
+	Esperado: contagem regressiva resetasse com o tempo adicionado
+	Bug: contagem continua em background do timer anterior
