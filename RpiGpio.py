@@ -2,9 +2,9 @@ import RPi.GPIO as GPIO #teste no pc
 
 
 
-# pinSaida1 = 11;
-pinSaida1 = 12;
-# pinSaida2 = 12;
+# pinSaida1 = 11
+pinSaida1 = 12
+# pinSaida2 = 12
 
 
 
