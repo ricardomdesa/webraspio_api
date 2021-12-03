@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from rpi_gpio import Gpio
 from settings import get_settings
-from src.temperature_sensor import TemperatureSensor
+from temperature_sensor import TemperatureSensor
 
 app = FastAPI()
 settings = get_settings()
