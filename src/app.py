@@ -6,7 +6,8 @@ from settings import get_settings
 app = FastAPI()
 settings = get_settings()
 
-gpio = Gpio(env = settings.ENV)
+gpio = Gpio(env=settings.ENV)
+
 
 @app.get("/health")
 def health():
@@ -15,5 +16,9 @@ def health():
 
 @app.post("/on/")
 def turn_on():
-    breakpoint()
     return gpio.ativa()
+
+
+@app.post("/off/")
+def turn_off():
+    return gpio.desativa()

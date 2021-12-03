@@ -4,7 +4,6 @@ from unittest.mock import Mock
 class Gpio:
 
     def __init__(self, env: str):
-        print('inicia Gpio')
         self._pin = 12
         if env == "rpi":
             import RPi.GPIO as GPIO
