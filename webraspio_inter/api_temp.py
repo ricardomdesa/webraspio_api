@@ -5,7 +5,7 @@ import Adafruit_BMP.BMP085 as BMP085
 app = Flask(__name__)
 
 temp_json = {
-    'temp':0.0
+    'temp': 0.0
 }
 
 sensor = BMP085.BMP085()
